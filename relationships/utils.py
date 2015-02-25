@@ -7,7 +7,6 @@ else:
     User = get_user_model()
 
 
-from .compat import User
 from .models import RelationshipStatus
 
 

@@ -1,8 +1,8 @@
-from django.contrib import admin
+from django.contrib import admin, auth
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User as DefaultUserModel
 
-from .compat import User
+from .compat import AUTH_USER_MODEL
 from .forms import RelationshipStatusAdminForm
 from .models import Relationship, RelationshipStatus
 
@@ -22,11 +22,11 @@ class RelationshipStatusAdmin(admin.ModelAdmin):
     form = RelationshipStatusAdminForm
 
 
-if User == DefaultUserModel:
+if AUTH_USER_MODEL == 'auth.User':
     class UserRelationshipAdmin(UserRelationshipAdminMixin, UserAdmin):
         pass
 
-    admin.site.unregister(User)
-    admin.site.register(User, UserRelationshipAdmin)
+    admin.site.unregister(auth.models.User)
+    admin.site.register(auth.models.User, UserRelationshipAdmin)
 
 admin.site.register(RelationshipStatus, RelationshipStatusAdmin)
